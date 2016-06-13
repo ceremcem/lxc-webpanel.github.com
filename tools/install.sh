@@ -21,6 +21,12 @@ if [[ -d "$INSTALL_DIR" ]];then
 	exit 1
 fi
 
+hash lxc-net &> /dev/null || {
+	echo "lxc-net is not installed in your system. Please install it first."
+	exit 1
+}
+
+
 echo 'Installing requirement...'
 
 apt-get update &> /dev/null
@@ -34,6 +40,8 @@ hash pip &> /dev/null || {
 	echo '+ Installing Python pip'
 	apt-get install -y python-pip > /dev/null
 }
+
+
 
 python -c 'import flask' &> /dev/null || {
 	echo '| + Flask Python...'
